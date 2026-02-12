@@ -2,25 +2,18 @@ const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
 const response = document.getElementById("response");
 
-// Initial position
-noBtn.style.position = "absolute";
-noBtn.style.left = "50%";
-noBtn.style.top = "60%";
-
 function moveButtonSlightly() {
-  const moveAmount = 80; // how far it can move each time
+  const moveAmount = 100; // small movement range
 
-  const currentX = noBtn.offsetLeft;
-  const currentY = noBtn.offsetTop;
+  const rect = noBtn.getBoundingClientRect();
 
-  // Random small movement
-  let newX = currentX + (Math.random() - 0.5) * moveAmount;
-  let newY = currentY + (Math.random() - 0.5) * moveAmount;
+  let newX = rect.left + (Math.random() - 0.5) * moveAmount;
+  let newY = rect.top + (Math.random() - 0.5) * moveAmount;
 
-  // Keep inside screen boundaries
-  const maxX = window.innerWidth - noBtn.offsetWidth;
-  const maxY = window.innerHeight - noBtn.offsetHeight;
+  const maxX = window.innerWidth - rect.width;
+  const maxY = window.innerHeight - rect.height;
 
+  // Clamp inside screen
   newX = Math.max(0, Math.min(newX, maxX));
   newY = Math.max(0, Math.min(newY, maxY));
 
@@ -28,10 +21,9 @@ function moveButtonSlightly() {
   noBtn.style.top = newY + "px";
 }
 
-// Run away slightly every hover
+// Move slightly every time you hover
 noBtn.addEventListener("mouseenter", moveButtonSlightly);
 
 yesBtn.addEventListener("click", () => {
-  response.innerHTML = "Yayyyyy 💕 I knew you'd say yes! 💕";
-  response.style.fontSize = "24px";
+  response.innerHTML = "Yayyyyy 💕 I knew you'd say yes!";
 });
