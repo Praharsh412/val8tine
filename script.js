@@ -2,29 +2,19 @@ const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
 const response = document.getElementById("response");
 
-let activated = false;
-
 function moveButton() {
-  const moveAmount = 80;
+  const moveAmount = 60;
 
-  // First hover: convert to fixed so it can move freely
-  if (!activated) {
-    const rect = noBtn.getBoundingClientRect();
-    noBtn.style.position = "fixed";
-    noBtn.style.left = rect.left + "px";
-    noBtn.style.top = rect.top + "px";
-    activated = true;
-  }
+  const wrapper = document.querySelector(".button-wrapper");
+  const maxX = wrapper.clientWidth - noBtn.offsetWidth;
+  const maxY = wrapper.clientHeight - noBtn.offsetHeight;
 
-  const rect = noBtn.getBoundingClientRect();
+  let currentX = noBtn.offsetLeft;
+  let currentY = noBtn.offsetTop;
 
-  let newX = rect.left + (Math.random() - 0.5) * moveAmount;
-  let newY = rect.top + (Math.random() - 0.5) * moveAmount;
+  let newX = currentX + (Math.random() - 0.5) * moveAmount;
+  let newY = currentY + (Math.random() - 0.5) * moveAmount;
 
-  const maxX = window.innerWidth - rect.width;
-  const maxY = window.innerHeight - rect.height;
-
-  // Clamp inside viewport
   newX = Math.max(0, Math.min(newX, maxX));
   newY = Math.max(0, Math.min(newY, maxY));
 
