@@ -16,6 +16,7 @@ function moveButton() {
 noBtn.addEventListener("mouseover", moveButton);
 
 yesBtn.addEventListener("click", () => {
-  response.innerHTML = "Yayyyyy 💕 I knew you'd say yes!";
+  response.innerHTML = "Yayyyyy 💕 I knew you'd say yes!!! xD";
   response.style.fontSize = "24px";
 });
+
