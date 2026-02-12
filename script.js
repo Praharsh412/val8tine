@@ -1,54 +1,21 @@
-body {
-  margin: 0;
-  height: 100vh;
-  background: linear-gradient(to right, #ff758c, #ff7eb3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: Arial, sans-serif;
-  overflow: hidden;
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const response = document.getElementById("response");
+
+function moveButton() {
+  const maxX = window.innerWidth - noBtn.offsetWidth;
+  const maxY = window.innerHeight - noBtn.offsetHeight;
+
+  const randomX = Math.floor(Math.random() * maxX);
+  const randomY = Math.floor(Math.random() * maxY);
+
+  noBtn.style.left = randomX + "px";
+  noBtn.style.top = randomY + "px";
 }
 
-.container {
-  text-align: center;
-  color: white;
-}
+noBtn.addEventListener("mouseover", moveButton);
 
-h1 {
-  font-size: 2.5rem;
-}
-
-.valentine-image {
-  margin: 20px 0;
-  border-radius: 15px;
-}
-
-.buttons {
-  margin-top: 20px;
-  position: relative;
-}
-
-button {
-  padding: 12px 25px;
-  font-size: 18px;
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
-  margin: 10px;
-  transition: 0.3s;
-}
-
-#yesBtn {
-  background-color: #ff4d6d;
-  color: white;
-}
-
-#yesBtn:hover {
-  transform: scale(1.1);
-}
-
-#noBtn {
-  background-color: white;
-  color: #ff4d6d;
-  position: absolute;
-}
+yesBtn.addEventListener("click", () => {
+  response.innerHTML = "Yayyyyy 💕 I knew you'd say yes!";
+  response.style.fontSize = "24px";
+});
