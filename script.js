@@ -2,43 +2,36 @@ const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
 const response = document.getElementById("response");
 
-// Make sure button starts somewhere visible
+// Initial position
 noBtn.style.position = "absolute";
-noBtn.style.left = "60%";
+noBtn.style.left = "50%";
 noBtn.style.top = "60%";
 
-function moveButton() {
-  const padding = 20; // space from edges
+function moveButtonSlightly() {
+  const moveAmount = 80; // how far it can move each time
 
-  const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-  const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+  const currentX = noBtn.offsetLeft;
+  const currentY = noBtn.offsetTop;
 
-  const randomX = Math.random() * maxX;
-  const randomY = Math.random() * maxY;
+  // Random small movement
+  let newX = currentX + (Math.random() - 0.5) * moveAmount;
+  let newY = currentY + (Math.random() - 0.5) * moveAmount;
 
-  noBtn.style.left = randomX + "px";
-  noBtn.style.top = randomY + "px";
+  // Keep inside screen boundaries
+  const maxX = window.innerWidth - noBtn.offsetWidth;
+  const maxY = window.innerHeight - noBtn.offsetHeight;
+
+  newX = Math.max(0, Math.min(newX, maxX));
+  newY = Math.max(0, Math.min(newY, maxY));
+
+  noBtn.style.left = newX + "px";
+  noBtn.style.top = newY + "px";
 }
 
-// Run away when hovered
-noBtn.addEventListener("mouseenter", moveButton);
-
-// OPTIONAL: Even more evil – runs if cursor gets close
-document.addEventListener("mousemove", (e) => {
-  const rect = noBtn.getBoundingClientRect();
-
-  const distance =
-    Math.hypot(
-      e.clientX - (rect.left + rect.width / 2),
-      e.clientY - (rect.top + rect.height / 2)
-    );
-
-  if (distance < 100) { // distance threshold
-    moveButton();
-  }
-});
+// Run away slightly every hover
+noBtn.addEventListener("mouseenter", moveButtonSlightly);
 
 yesBtn.addEventListener("click", () => {
-  response.innerHTML = "Yayyyyy 💕 I knew you'd say yes!";
+  response.innerHTML = "Yayyyyy 💕 I knew you'd say yes! 💕";
   response.style.fontSize = "24px";
 });
