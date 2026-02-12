@@ -1,28 +1,54 @@
-const noBtn = document.getElementById("noBtn");
-const yesBtn = document.getElementById("yesBtn");
-const response = document.getElementById("response");
-
-function moveButton() {
-  const moveAmount = 80;
-
-  const rect = noBtn.getBoundingClientRect();
-
-  let newX = rect.left + (Math.random() - 0.5) * moveAmount;
-  let newY = rect.top + (Math.random() - 0.5) * moveAmount;
-
-  const maxX = window.innerWidth - rect.width;
-  const maxY = window.innerHeight - rect.height;
-
-  // Clamp inside screen
-  newX = Math.max(0, Math.min(newX, maxX));
-  newY = Math.max(0, Math.min(newY, maxY));
-
-  noBtn.style.left = newX + "px";
-  noBtn.style.top = newY + "px";
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(to right, #ff758c, #ff7eb3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
 }
 
-noBtn.addEventListener("mouseenter", moveButton);
+.container {
+  text-align: center;
+  color: white;
+}
 
-yesBtn.addEventListener("click", () => {
-  response.innerHTML = "Yayyyyy 💕 I knew you'd say yes!";
-});
+h1 {
+  font-size: 2.5rem;
+}
+
+.valentine-image {
+  margin: 20px 0;
+  border-radius: 15px;
+}
+
+.buttons {
+  margin-top: 20px;
+  position: relative;
+}
+
+button {
+  padding: 12px 25px;
+  font-size: 18px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  margin: 10px;
+  transition: 0.3s;
+}
+
+#yesBtn {
+  background-color: #ff4d6d;
+  color: white;
+}
+
+#yesBtn:hover {
+  transform: scale(1.1);
+}
+
+#noBtn {
+  background-color: white;
+  color: #ff4d6d;
+  position: absolute;
+}
