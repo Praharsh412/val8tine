@@ -1,42 +1,38 @@
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
-const buttonArea = document.getElementById("buttonArea");
 const response = document.getElementById("response");
 
 let activated = false;
 
-function moveSlightly() {
-  const areaRect = buttonArea.getBoundingClientRect();
-  const btnRect = noBtn.getBoundingClientRect();
+function moveButton() {
+  const moveAmount = 80;
 
-  // On first hover, convert to absolute inside container
+  // First hover: convert to fixed so it can move freely
   if (!activated) {
-    noBtn.style.position = "absolute";
-    noBtn.style.left = (btnRect.left - areaRect.left) + "px";
-    noBtn.style.top = (btnRect.top - areaRect.top) + "px";
+    const rect = noBtn.getBoundingClientRect();
+    noBtn.style.position = "fixed";
+    noBtn.style.left = rect.left + "px";
+    noBtn.style.top = rect.top + "px";
     activated = true;
   }
 
-  const moveAmount = 60;
+  const rect = noBtn.getBoundingClientRect();
 
-  let currentLeft = parseFloat(noBtn.style.left);
-  let currentTop = parseFloat(noBtn.style.top);
+  let newX = rect.left + (Math.random() - 0.5) * moveAmount;
+  let newY = rect.top + (Math.random() - 0.5) * moveAmount;
 
-  let newLeft = currentLeft + (Math.random() - 0.5) * moveAmount;
-  let newTop = currentTop + (Math.random() - 0.5) * moveAmount;
+  const maxX = window.innerWidth - rect.width;
+  const maxY = window.innerHeight - rect.height;
 
-  const maxLeft = buttonArea.clientWidth - noBtn.offsetWidth;
-  const maxTop = buttonArea.clientHeight - noBtn.offsetHeight;
+  // Clamp inside viewport
+  newX = Math.max(0, Math.min(newX, maxX));
+  newY = Math.max(0, Math.min(newY, maxY));
 
-  // Clamp inside container
-  newLeft = Math.max(0, Math.min(newLeft, maxLeft));
-  newTop = Math.max(0, Math.min(newTop, maxTop));
-
-  noBtn.style.left = newLeft + "px";
-  noBtn.style.top = newTop + "px";
+  noBtn.style.left = newX + "px";
+  noBtn.style.top = newY + "px";
 }
 
-noBtn.addEventListener("mouseenter", moveSlightly);
+noBtn.addEventListener("mouseenter", moveButton);
 
 yesBtn.addEventListener("click", () => {
   response.innerHTML = "Yayyyyy 💕 I knew you'd say yes!";
