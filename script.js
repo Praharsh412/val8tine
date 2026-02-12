@@ -1,28 +1,42 @@
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
+const buttonArea = document.getElementById("buttonArea");
 const response = document.getElementById("response");
 
-function moveButtonSlightly() {
-  const moveAmount = 100; // small movement range
+let activated = false;
 
-  const rect = noBtn.getBoundingClientRect();
+function moveSlightly() {
+  const areaRect = buttonArea.getBoundingClientRect();
+  const btnRect = noBtn.getBoundingClientRect();
 
-  let newX = rect.left + (Math.random() - 0.5) * moveAmount;
-  let newY = rect.top + (Math.random() - 0.5) * moveAmount;
+  // On first hover, convert to absolute inside container
+  if (!activated) {
+    noBtn.style.position = "absolute";
+    noBtn.style.left = (btnRect.left - areaRect.left) + "px";
+    noBtn.style.top = (btnRect.top - areaRect.top) + "px";
+    activated = true;
+  }
 
-  const maxX = window.innerWidth - rect.width;
-  const maxY = window.innerHeight - rect.height;
+  const moveAmount = 60;
 
-  // Clamp inside screen
-  newX = Math.max(0, Math.min(newX, maxX));
-  newY = Math.max(0, Math.min(newY, maxY));
+  let currentLeft = parseFloat(noBtn.style.left);
+  let currentTop = parseFloat(noBtn.style.top);
 
-  noBtn.style.left = newX + "px";
-  noBtn.style.top = newY + "px";
+  let newLeft = currentLeft + (Math.random() - 0.5) * moveAmount;
+  let newTop = currentTop + (Math.random() - 0.5) * moveAmount;
+
+  const maxLeft = buttonArea.clientWidth - noBtn.offsetWidth;
+  const maxTop = buttonArea.clientHeight - noBtn.offsetHeight;
+
+  // Clamp inside container
+  newLeft = Math.max(0, Math.min(newLeft, maxLeft));
+  newTop = Math.max(0, Math.min(newTop, maxTop));
+
+  noBtn.style.left = newLeft + "px";
+  noBtn.style.top = newTop + "px";
 }
 
-// Move slightly every time you hover
-noBtn.addEventListener("mouseenter", moveButtonSlightly);
+noBtn.addEventListener("mouseenter", moveSlightly);
 
 yesBtn.addEventListener("click", () => {
   response.innerHTML = "Yayyyyy 💕 I knew you'd say yes!";
