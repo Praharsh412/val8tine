@@ -19,8 +19,11 @@ h1 {
 }
 
 .valentine-image {
-  margin: 20px 0;
+  max-width: 350px;    /* max size */
+  width: 90%;          /* scale down on small screens */
+  height: auto;
   border-radius: 15px;
+  margin: 20px auto;
 }
 
 .buttons {
@@ -52,3 +55,4 @@ button {
   color: #ff4d6d;
   position: absolute;
 }
+
